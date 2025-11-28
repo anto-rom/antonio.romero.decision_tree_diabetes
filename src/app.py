@@ -36,6 +36,8 @@ num_variables = [
     "Pregnancies",
     "Glucose",
     "BloodPressure",
+    "SkinThickness",
+    "Insulin",
     "BMI",
     "DiabetesPedigreeFunction",
     "Age",
@@ -53,12 +55,15 @@ def index():
         Pregnancies = float(request.form["val1"])
         Glucose = float(request.form["val2"])
         BloodPressure = float(request.form["val3"])
-        BMI = float(request.form["val4"])
-        DiabetesPedigreeFunction = float(request.form["val5"])
-        Age = float(request.form["val6"])
+        SkinThickness = float(request.form["val4"])
+        Insulin = float(request.form["val5"])
+        BMI = float(request.form["val6"])
+        DiabetesPedigreeFunction = float(request.form["val7"])
+        Age = float(request.form["val8"])
 
         data = np.array([[Pregnancies, Glucose, BloodPressure,
-                          BMI, DiabetesPedigreeFunction, Age]])
+                          SkinThickness, Insulin, BMI,
+                          DiabetesPedigreeFunction, Age]])
 
         data_normalized = scaler.transform(data)
         prediction = str(model.predict(data_normalized)[0])
