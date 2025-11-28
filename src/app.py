@@ -6,22 +6,26 @@ import numpy as np
 import pandas as pd
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Directorio donde está este archivo (src/)
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_PATH = os.path.join(BASE_DIR, "src", "modelo_arbol_diabetes.pkl")
-DATA_PATH = os.path.join(BASE_DIR, "data.csv")
+# Ruta al modelo (está en src/)
+MODEL_PATH = os.path.join(CURRENT_DIR, "modelo_arbol_diabetes.pkl")
+
+# URL del dataset original
+DATA_URL = "https://breathecode.herokuapp.com/asset/internal-link?id=930&path=diabetes.csv"
 
 app = Flask(
     __name__,
-    template_folder=os.path.join(BASE_DIR, "templates")
+    template_folder=os.path.join(CURRENT_DIR, "templates")  # src/templates
 )
 
 # Cargar modelo
 with open(MODEL_PATH, "rb") as f:
     model = load(f)
 
-# Cargar dataset para el scaler
-df = pd.read_csv(DATA_PATH)
+# Cargar dataset desde la URL para ajustar el scaler
+df = pd.read_csv(DATA_URL)
 
 class_dict = {
     "0": "Sin diabetes",
@@ -57,7 +61,6 @@ def index():
                           BMI, DiabetesPedigreeFunction, Age]])
 
         data_normalized = scaler.transform(data)
-
         prediction = str(model.predict(data_normalized)[0])
         pred_class = class_dict[prediction]
 
@@ -67,4 +70,3 @@ def index():
 @app.route("/health")
 def health():
     return "OK"
-    
