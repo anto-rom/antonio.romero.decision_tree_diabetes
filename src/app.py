@@ -61,17 +61,26 @@ def index():
         DiabetesPedigreeFunction = float(request.form["val7"])
         Age = float(request.form["val8"])
 
-        data = np.array([[Pregnancies, Glucose, BloodPressure,
-                          SkinThickness, Insulin, BMI,
-                          DiabetesPedigreeFunction, Age]])
+        # Construimos un DataFrame con los mismos nombres de columnas
+        row = {
+            "Pregnancies": Pregnancies,
+            "Glucose": Glucose,
+            "BloodPressure": BloodPressure,
+            "SkinThickness": SkinThickness,
+            "Insulin": Insulin,
+            "BMI": BMI,
+            "DiabetesPedigreeFunction": DiabetesPedigreeFunction,
+            "Age": Age,
+        }
 
-        data_normalized = scaler.transform(data)
-        prediction = str(model.predict(data_normalized)[0])
-        pred_class = class_dict[prediction]
+        input_df = pd.DataFrame([row])
+
+        # Mantenemos el orden de columnas usado en el scaler
+        X_scaled = scaler.transform(input_df[num_variables])
+
+        y_pred = model.predict(X_scaled)[0]
+        print("Predicción cruda:", y_pred, flush=True)   # Para ver en logs
+
+        pred_class = class_dict[str(int(y_pred))]
 
     return render_template("index.html", prediction=pred_class)
-
-
-@app.route("/health")
-def health():
-    return "OK"
