@@ -8,7 +8,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MODEL_PATH = os.path.join(BASE_DIR, "models", "modelo_arbol_diabetes.pkl")
+MODEL_PATH = os.path.join(BASE_DIR, "src", "modelo_arbol_diabetes.pkl")
 DATA_PATH = os.path.join(BASE_DIR, "data.csv")
 
 app = Flask(
