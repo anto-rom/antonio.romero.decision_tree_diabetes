@@ -3,9 +3,11 @@ from pickle import load
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 import pandas as pd
+import os
 
 app = Flask(__name__)
-model = load(open("decision_tree_classifier_default_42.sav", "rb"))
+MODEL_PATH = os.path.join("models", "modelo_arbol_diabetes.pkl")
+
 class_dict = {
     "0": "Sin diabetes",
     "1": "Diabetes",
