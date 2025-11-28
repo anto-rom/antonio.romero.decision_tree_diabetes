@@ -15,32 +15,31 @@
     <div class="container">
         <h1>Modelo de Predicción de Diabetes</h1>
 
-        <form method="POST">
-            <label>Pregnancies</label>
-            <input type="number" step="1" name="val1" required>
+<form method="POST">
+    <label>Pregnancies</label>
+    <input type="number" step="1" name="val1" required>
 
-            <label>Glucose</label>
-            <input type="number" step="0.1" name="val2" required>
+    <label>Glucose</label>
+    <input type="number" step="0.1" name="val2" required>
 
-            <label>BloodPressure</label>
-            <input type="number" step="0.1" name="val3" required>
+    <label>BloodPressure</label>
+    <input type="number" step="0.1" name="val3" required>
 
-            <label>BMI</label>
-            <input type="number" step="0.1" name="val4" required>
+    <label>SkinThickness</label>
+    <input type="number" step="0.1" name="val4" required>
 
-            <label>DiabetesPedigreeFunction</label>
-            <input type="number" step="0.001" name="val5" required>
+    <label>Insulin</label>
+    <input type="number" step="0.1" name="val5" required>
 
-            <label>Age</label>
-            <input type="number" step="1" name="val6" required>
+    <label>BMI</label>
+    <input type="number" step="0.1" name="val6" required>
 
-            <button type="submit">Predecir</button>
-        </form>
+    <label>DiabetesPedigreeFunction</label>
+    <input type="number" step="0.001" name="val7" required>
 
-        {% if prediction %}
-            <h2>Resultado: {{ prediction }}</h2>
-        {% endif %}
-    </div>
-</body>
-</html>
+    <label>Age</label>
+    <input type="number" step="1" name="val8" required>
+
+    <button type="submit">Predecir</button>
+</form>
 
