@@ -6,10 +6,8 @@ import numpy as np
 import pandas as pd
 import os
 
-# Directorio base del proyecto (raíz del repo)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Rutas a modelo y datos
 MODEL_PATH = os.path.join(BASE_DIR, "models", "modelo_arbol_diabetes.pkl")
 DATA_PATH = os.path.join(BASE_DIR, "data.csv")
 
@@ -22,7 +20,7 @@ app = Flask(
 with open(MODEL_PATH, "rb") as f:
     model = load(f)
 
-# Cargar datos para ajustar el scaler
+# Cargar dataset para el scaler
 df = pd.read_csv(DATA_PATH)
 
 class_dict = {
@@ -42,6 +40,7 @@ num_variables = [
 scaler = StandardScaler()
 scaler.fit(df[num_variables])
 
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     pred_class = None
@@ -58,21 +57,14 @@ def index():
                           BMI, DiabetesPedigreeFunction, Age]])
 
         data_normalized = scaler.transform(data)
+
         prediction = str(model.predict(data_normalized)[0])
         pred_class = class_dict[prediction]
 
     return render_template("index.html", prediction=pred_class)
 
-# Ruta simple de salud
+
 @app.route("/health")
 def health():
     return "OK"
-
-        data_normalized = scaler.transform(data)
-
-        prediction = str(model.predict(data_normalized)[0])
-        pred_class = class_dict[prediction]
-    else:
-        pred_class = None
     
-    return render_template("index.html", prediction=pred_class)
