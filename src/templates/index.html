@@ -1,45 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>Predicción de Diabetes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
-        body { font-family: Arial; margin: 40px; }
-        .container { max-width: 400px; margin: auto; }
-        input { width: 100%; padding: 8px; margin: 6px 0; }
-        button { padding: 10px; width: 100%; cursor: pointer; }
-        h2 { color: #0077cc; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-top: 24px;
+        }
+        .field {
+            margin-bottom: 12px;
+        }
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 6px 8px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 16px;
+            padding: 10px 16px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 24px;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .result.ok {
+            background-color: #e6ffed;
+            border: 1px solid #2e7d32;
+            color: #2e7d32;
+        }
+        .result.error {
+            background-color: #ffebee;
+            border: 1px solid #c62828;
+            color: #c62828;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Modelo de Predicción de Diabetes</h1>
+    <h1>Modelo de Predicción de Diabetes</h1>
+    <p>
+        Introduce los datos del paciente y pulsa <strong>Predecir</strong>.
+    </p>
 
-<form method="POST">
-    <label>Pregnancies</label>
-    <input type="number" step="1" name="val1" required>
+    <form action="/" method="post">
+        <div class="field">
+            <label for="val1">Embarazos (Pregnancies)</label>
+            <input type="number" step="1" id="val1" name="val1" required>
+        </div>
 
-    <label>Glucose</label>
-    <input type="number" step="0.1" name="val2" required>
+        <div class="field">
+            <label for="val2">Glucosa (Glucose)</label>
+            <input type="number" step="0.1" id="val2" name="val2" required>
+        </div>
 
-    <label>BloodPressure</label>
-    <input type="number" step="0.1" name="val3" required>
+        <div class="field">
+            <label for="val3">Presión sanguínea (BloodPressure)</label>
+            <input type="number" step="0.1" id="val3" name="val3" required>
+        </div>
 
-    <label>SkinThickness</label>
-    <input type="number" step="0.1" name="val4" required>
+        <div class="field">
+            <label for="val4">Espesor de piel (SkinThickness)</label>
+            <input type="number" step="0.1" id="val4" name="val4" required>
+        </div>
 
-    <label>Insulin</label>
-    <input type="number" step="0.1" name="val5" required>
+        <div class="field">
+            <label for="val5">Insulina (Insulin)</label>
+            <input type="number" step="0.1" id="val5" name="val5" required>
+        </div>
 
-    <label>BMI</label>
-    <input type="number" step="0.1" name="val6" required>
+        <div class="field">
+            <label for="val6">Índice de masa corporal (BMI)</label>
+            <input type="number" step="0.1" id="val6" name="val6" required>
+        </div>
 
-    <label>DiabetesPedigreeFunction</label>
-    <input type="number" step="0.001" name="val7" required>
+        <div class="field">
+            <label for="val7">Diabetes Pedigree Function</label>
+            <input type="number" step="0.01" id="val7" name="val7" required>
+        </div>
 
-    <label>Age</label>
-    <input type="number" step="1" name="val8" required>
+        <div class="field">
+            <label for="val8">Edad (Age)</label>
+            <input type="number" step="1" id="val8" name="val8" required>
+        </div>
 
-    <button type="submit">Predecir</button>
-</form>
+        <button type="submit">Predecir</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result ok">
+            Resultado de la predicción: {{ prediction }}
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="result error">
+            Se ha producido un error: {{ error }}
+        </div>
+    {% endif %}
+</body>
+</html>
 
