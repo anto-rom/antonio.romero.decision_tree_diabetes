@@ -15,9 +15,10 @@ with open(MODEL_PATH, "rb") as f:
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        print(">>> He recibido un POST en /")  # Para ver en logs de Render
+        print(">>> He recibido un POST en /")
+        print(">>> request.form:", request.form.to_dict())  # NUEVO
+
         try:
-            # Ejemplo: recoger campos del formulario
             preg = float(request.form["Pregnancies"])
             glu = float(request.form["Glucose"])
             bp = float(request.form["BloodPressure"])
@@ -39,4 +40,5 @@ def index():
             return render_template("index.html", error=str(e))
 
     return render_template("index.html")
+
 
